@@ -1,0 +1,24 @@
+version: '2.1'
+services:
+  pgbouncer:
+    image: docker.io/bitnami/pgbouncer:1
+    environment:
+      - PGBOUNCER_AUTH_TYPE=trust
+      - PGBOUNCER_DATABASE=${DB_NAME}
+      - POSTGRESQL_HOST=${DB_HOSTNAME}
+      - POSTGRESQL_USERNAME=${DB_USER}
+      - POSTGRESQL_PASSWORD=${DB_PASSWORD}
+      - POSTGRESQL_DATABASE=${DB_NAME}
+  cloudflared:
+    image: cloudflare/cloudflared:2022.6.2
+    environment:
+      - TUNNEL_NAME=${TUNNEL_NAME}
+      - TUNNEL_HOSTNAME=${TUNNEL_HOSTNAME}
+    volumes:
+      - '~/.cloudflared:/etc/cloudflared'
+    command: tunnel --url tcp://pgbouncer:6432 -f
+    depends_on:
+      - pgbouncer
+volumes:
+  postgresql_data:
+    driver: local
