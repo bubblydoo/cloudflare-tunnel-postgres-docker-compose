@@ -4,7 +4,11 @@ Running a Cloudflare Tunnel enables you to use your Postgres database in a Cloud
 
 You can then use [@bubblydoo/cloudflare-workers-postgres-client](https://github.com/bubblydoo/cloudflare-workers-postgres-client) to access the database from a Cloudflare Worker.
 
-This config was tested on AWS, with an Amazon Linux 2 instance, but it should work on any Linux server.
+Based on [worker-template-postgres](https://github.com/cloudflare/worker-template-postgres/blob/master/scripts/postgres/docker-compose.yml).
+
+Includes `cloudflared`, but also `pgbouncer`, a connection pooler.
+
+This config was tested on AWS, with an Amazon Linux 2 instance, but it should work on any Linux server. Note that it only works on x86/amd64/Intel processors for now, because both `pgbouncer` and `cloudflared` only offer `amd64` images.
 
 ## Steps
 
