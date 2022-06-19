@@ -14,9 +14,9 @@ This config was tested on AWS, with an Amazon Linux 2 instance, but it should wo
 
 To install a Postgres tunnel:
 
+- run `mkdir ~/.cloudflared && chown 65532:65532 -R ~/.cloudflared` (the `cloudflared` docker uses user 65532)
 - run `docker run -v ~/.cloudflared:/home/nonroot/.cloudflared cloudflare/cloudflared:2022.6.2 login` on the server
 - copy `docker-compose.yml` to a server (e.g. with `git clone https://github.com/bubblydoo/cloudflare-tunnel-postgres-docker-compose`)
-- run `mkdir ~/.cloudflared && chown 65532:65532 -R ~/.cloudflared`
 - next to the `docker-compose.yml` file, create an `.env` file with:
   - DB_NAME (e.g. `db`)
   - DB_HOSTNAME (e.g. `123.rds.amazonaws.net`)
